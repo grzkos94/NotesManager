@@ -1,0 +1,56 @@
+    <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/layout" lang="en">
+    <head>
+        <title>Update</title>
+    </head>
+    <body>
+        <nav layout:fragment="layouts/layout :: navbar('update')"></nav>
+        <div layout:fragment="content">
+            <div class="col-sm-offset-2 col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Editing note: <!--/*@thymesVar id="note" type="com.tasks.manager.domain.Note"*/-->
+                        <b th:text="${note.name}"></b>
+                    </div>
+                    <div class="panel-body">
+                        <!--/*@thymesVar id="note" type="com.tasks.manager.domain.Note"*/-->
+                        <form th:object="${note}" th:action="@{/notes/update/{noteId}(noteId=${note.id})}"
+                              method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label th:for="${#ids.next('name')}" class="col-sm-3 control-label">Name</label>
+                                <div class="col-sm-6">
+                                    <input type="text" th:field="*{name}" th:errorclass="fieldError" class="form-control"/>
+                                    <span style="color: #ff0000" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect name</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:for="${#ids.next('text')}" class="col-sm-3 control-label">Text</label>
+                                <div class="col-sm-6">
+                                    <textarea type="text" th:field="*{text}" th:errorclass="fieldError" class="form-control"/>
+                                    <span style="color: #ff0000" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Incorrect text</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" class="btn btn-success">
+                                        <span class="fa fa-save fa-fw" aria-hidden="true"></span>
+                                        Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <a class="btn btn-sm btn-info" th:href="${(#mvc.url('NC#index')).build()}" type="button">
+                            <span class="fa fa-reply" aria-hidden="true"></span>
+                            Back to Notes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

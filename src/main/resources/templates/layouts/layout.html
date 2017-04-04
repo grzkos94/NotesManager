@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Note List</title>
+        <!--CSS-->
+        <link
+                th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css}"
+                integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+"
+                crossorigin="anonymous" rel="stylesheet"/>
+        <link
+                th:href="@{https://fonts.googleapis.com/css?family=Lato:100,300,400,700}"
+                rel="stylesheet"/>
+
+        <link
+                th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css}"
+                integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+                crossorigin="anonymous" rel="stylesheet" type="text/css"/>
+
+        <link
+                th:href="@{https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css}"
+                rel="stylesheet" type="text/css"/>
+
+        <link
+              th:href="@{/css/layout.css}" rel="stylesheet" media="screen"/>
+
+        <!-- JavaScript -->
+        <script
+                th:src="@{https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js}"
+                integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb"
+                crossorigin="anonymous"></script>
+        <script
+                th:src="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js}"
+                integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+                crossorigin="anonymous"></script>
+        <script
+                th:src="@{https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js}"></script>
+        <script
+                th:src="@{https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js}"></script>
+    </head>
+    <body>
+        <!--Navbar Fragment-->
+        <nav th:fragment="navbar(activeTab)" class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+
+                    <!-- Collapsed Hamburger -->
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" th:href="${(#mvc.url('NC#index')).build()}">
+                        Note List
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="${(#mvc.url('UC#logoutPage').build())}" method="post">
+                                <button type="submit" class="btn btn-link">Logout</button>
+                            </form>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a th:href="${(#mvc.url('UC#login').build())}">
+                                Login
+                            </a>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a th:href="${(#mvc.url('UC#register').build())}">
+                                Register
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--/*@thymesVar id="alertSuccess" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="alertInfo" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="alertDanger" type="java.lang.String"*/-->
+        <div class="alert-container container">
+            <div th:text="${alertSuccess}"
+                 th:class="(${alertSuccess == null} ? 'hidden' : 'show') + ' alert alert-success'"></div>
+            <div th:text="${alertInfo}"
+                 th:class="(${alertInfo == null} ? 'hidden' : 'show') + ' alert alert-info'"></div>
+            <div th:text="${alertDanger}"
+                 th:class="(${alertDanger == null} ? 'hidden' : 'show') + ' alert alert-danger'"></div>
+        </div>
+
+        <div class="container">
+            <div layout:fragment="content"></div>
+        </div>
+    </body>
+</html>
