@@ -1,5 +1,7 @@
 package com.notes.manager.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,16 @@ import com.notes.manager.domain.Note;
 import com.notes.manager.domain.User;
 import com.notes.manager.exception.NoteNotFoundException;
 import com.notes.manager.service.NoteService;
+import com.notes.manager.service.UserService;
 
 @Controller
 @RequestMapping("/notes")
 public class NoteController {
 	@Autowired
 	private NoteService noteService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model, @ModelAttribute("currentUser") User currentUser) {
@@ -40,6 +46,7 @@ public class NoteController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String doCreate(@ModelAttribute("currentUser") User currentUser, @Valid Note note,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
 		if (bindingResult.hasErrors())
 			return "note/create";
 
@@ -84,6 +91,13 @@ public class NoteController {
 
 	@InitBinder
 	public void initialiseBinder(WebDataBinder binder) {
-		binder.setAllowedFields("name", "text");
+		binder.setAllowedFields("title", "content");
+	}
+	
+	@ModelAttribute("currentUser")
+	public User user(Principal principal){
+		if(principal == null) return null;
+
+		return userService.findByUsername(principal.getName());
 	}
 }

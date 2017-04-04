@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layouts/layout" lang="en">
-    <head>
-        <title>Create</title>
-    </head>
-    <body>
-    <nav layout:fragment="layouts/layout :: navbar('register')"></nav>
-        <div layout:fragment="content">
-            <div class="col-sm-offset-2 col-sm-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Register
-                    </div>
-                    <div class="panel-body">
-                        <!--/*@thymesVar id="user" type="com.tasks.manager.domain.User"*/-->
-                        <form th:object="${user}" th:action="@{/register}" method="post" class="form-horizontal">
-                            <div class="form-group">
-                                <label th:for="${#ids.next('username')}" class="col-md-4 control-label">Username</label>
-                                <div class="col-md-6">
-                                    <input type="text" th:field="*{username}" th:errorclass="fieldError" class="form-control"/>
-                                    <span style="color: #ff0000" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label th:for="${#ids.next('password')}" class="col-md-4 control-label">Password</label>
-                                <div class="col-md-6">
-                                    <input type="password" th:field="*{password}" th:errorclass="fieldError" class="form-control"/>
-                                    <span style="color: #ff0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label th:for="${#ids.next('passwordConfirm')}" class="col-md-4 control-label">Confirm Password</label>
-                                <div class="col-md-6">
-                                    <input type="password" th:field="*{passwordConfirm}" th:errorclass="fieldError" class="form-control"/>
-                                    <span style="color: #ff0000" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">Incorrect password confirmation</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-user"></i>
-                                        Register
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/layout" lang="en">
+<head>
+<title>Create</title>
+</head>
+<body>
+	<nav layout:fragment="layouts/layout :: navbar('register')"></nav>
+	<div layout:fragment="content">
+		<div class="col-sm-offset-2 col-sm-8">
+			<div class="panel panel-default">
+				<div class="panel-heading">Register</div>
+				<div class="panel-body">
+					<form th:object="${user}" th:action="@{/register}" method="post"
+						class="form-horizontal">
+						<div class="form-group">
+							<label th:for="${#ids.next('username')}"
+								class="col-md-4 control-label">Username</label>
+							<div class="col-md-6">
+								<input type="text" th:field="*{username}"
+									th:errorclass="fieldError" class="form-control" /> <span
+									style="color: #ff0000" th:if="${#fields.hasErrors('username')}"
+									th:errors="*{username}">Incorrect username</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label th:for="${#ids.next('password')}"
+								class="col-md-4 control-label">Password</label>
+							<div class="col-md-6">
+								<input type="password" th:field="*{password}"
+									th:errorclass="fieldError" class="form-control" /> <span
+									style="color: #ff0000" th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}">Incorrect password</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label th:for="${#ids.next('passwordConfirm')}"
+								class="col-md-4 control-label">Confirm Password</label>
+							<div class="col-md-6">
+								<input type="password" th:field="*{passwordConfirm}"
+									th:errorclass="fieldError" class="form-control" /> <span
+									style="color: #ff0000"
+									th:if="${#fields.hasErrors('passwordConfirm')}"
+									th:errors="*{passwordConfirm}">Incorrect password
+									confirmation</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-4">
+								<button type="submit" class="btn btn-primary">
+									<i class="fa fa-btn fa-user"></i> Register
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

@@ -13,14 +13,17 @@
             <div class="col-sm-offset-1 col-sm-10">
                 <div id="content">
                     <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="all">
+                    	<div th:class="${notes.size() != 0 ? 'hidden' : ''}" class="tab-pane active">
+                    		<h1>You don't have any notes</h1>
+                    	</div>
+                        <div th:class="${notes.size() == 0 ? 'hidden' : ''}" class="tab-pane active" id="all">
                             <h1>Your notes</h1>
                             <div class="table-responsive">
                                 <table class="table table-striped task-table table-condensed">
                                     <thead>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Text</th>
+                                        <th>Title</th>
+                                        <th>Content</th>
                                         <th>Create Date</th>
                                         <th>Update Date</th>
                                         <th><div class="pull-right">Actions</div></th>
@@ -29,8 +32,8 @@
                                     <!--/*@thymesVar id="notes" type="List<com.tasks.manager.domain.Note>"*/-->
                                         <tr th:each="note : ${notes}">
                                             <td th:text="${note.id}" class="table-text"/>
-                                            <td th:text="${note.name}" class="table-text"/>
-                                            <td th:text="${note.text}"/>
+                                            <td th:text="${note.title}" class="table-text"/>
+                                            <td th:text="${note.content}"/>
                                             <td th:text="${#dates.format(note.createDate, 'dd-MM-yyyy hh:mm:ss')}"></td>
 
                                             <td th:text="
