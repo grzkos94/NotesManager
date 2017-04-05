@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,13 +23,12 @@ public class User {
 	@GeneratedValue
 	private long id;
 
+	@Column(unique = true)
 	@NotBlank(message = "Please enter a username")
 	private String username;
 
 	@NotBlank(message = "Please enter a password")
 	private String password;
-
-	private boolean enabled;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -38,9 +38,6 @@ public class User {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Note> notes;
-
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<UserRole> roles;
 
 	@Transient
 	@NotBlank(message = "Please confirm the password")
@@ -80,13 +77,6 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 
 	public Date getCreateDate() {
 		return createDate;
@@ -110,14 +100,6 @@ public class User {
 
 	public void setNotes(List<Note> notes) {
 		this.notes = notes;
-	}
-
-	public List<UserRole> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<UserRole> roles) {
-		this.roles = roles;
 	}
 
 	public String getPasswordConfirm() {

@@ -39,6 +39,11 @@ public class Note {
 	public Note() {
 	}
 
+	public Note(String title, String content){
+		this.title = title;
+		this.content = content;
+	}
+	
 	public Note(String title, String content, User user) {
 		this.title = title;
 		this.content = content;

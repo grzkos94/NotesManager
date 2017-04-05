@@ -69,7 +69,6 @@ public class UserController {
 
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String register(Model model) {
-
 		model.addAttribute("user", new User());
 		return "user/register";
 	}
@@ -78,6 +77,7 @@ public class UserController {
 	public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
+		System.out.println(result.getAllErrors());
 		if (result.hasErrors())
 			return "user/register";
 

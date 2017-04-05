@@ -11,6 +11,7 @@ import org.springframework.validation.Validator;
 
 import com.notes.manager.configuration.PersistenceConfig;
 import com.notes.manager.validator.PasswordConfirmationValidator;
+import com.notes.manager.validator.UniqueUsernameValidator;
 import com.notes.manager.validator.UserValidator;
 
 @SpringBootApplication
@@ -25,11 +26,17 @@ public class NotesManagerApplication {
 	Validator passwordConfirmationValidator() {
 		return new PasswordConfirmationValidator();
 	}
+	
+	@Bean
+	Validator uniqueUsernameValidator(){
+		return new UniqueUsernameValidator();
+	}
 
 	@Bean
 	UserValidator userValidator() {
 		Set<Validator> springValidators = new HashSet<>();
 		springValidators.add(passwordConfirmationValidator());
+		springValidators.add(uniqueUsernameValidator());
 
 		UserValidator validator = new UserValidator();
 		validator.setSpringValidators(springValidators);

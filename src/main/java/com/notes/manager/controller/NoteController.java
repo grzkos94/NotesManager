@@ -25,12 +25,15 @@ import com.notes.manager.service.UserService;
 @Controller
 @RequestMapping("/notes")
 public class NoteController {
-	@Autowired
 	private NoteService noteService;
-	
-	@Autowired
 	private UserService userService;
 
+	@Autowired
+	public NoteController(NoteService noteService, UserService userService){
+		this.noteService = noteService;
+		this.userService = userService;
+	}
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model, @ModelAttribute("currentUser") User currentUser) {
 		model.addAttribute("notes", noteService.findAllByUser(currentUser));
