@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,15 +26,21 @@ import com.notes.manager.validator.UserValidator;
 @Controller
 @RequestMapping("/")
 public class UserController {
-	@Autowired
+
 	private UserService userService;
+	
+	private UserValidator userValidator;
 
 	@Autowired
-	private UserValidator userValidator;
+	public UserController(UserService userService, UserValidator userValidator) {
+		this.userService = userService;
+		this.userValidator = userValidator;
+	}
 
 	@InitBinder
 	public void initializeBinder(WebDataBinder binder) {
 		binder.setValidator(userValidator);
+		binder.setAllowedFields("username", "password", "passwordConfirm");
 	}
 
 	@RequestMapping("*")
@@ -67,18 +72,17 @@ public class UserController {
 		return "redirect:/login?logout";
 	}
 
-	@RequestMapping(value = "register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register(Model model) {
 		model.addAttribute("user", new User());
 		return "user/register";
 	}
 
-	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result,
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String doRegister(@Valid User user, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 
-		System.out.println(result.getAllErrors());
-		if (result.hasErrors())
+		if (bindingResult.hasErrors())
 			return "user/register";
 
 		userService.save(user);

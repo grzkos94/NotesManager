@@ -19,10 +19,8 @@ public class UniqueUsernameValidator implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		User targetUser = (User) target;
-		
-		User userWithSameUsername = userService.findByUsername(targetUser.getUsername());
-		
-		if(userWithSameUsername != null){
+
+		if(userService.userWithThisUsernameExist(targetUser.getUsername())){
 			errors.rejectValue("username", "", "This username is already in use");
 		}
 	}

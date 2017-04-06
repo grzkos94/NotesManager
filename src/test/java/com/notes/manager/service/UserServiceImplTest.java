@@ -47,4 +47,18 @@ public class UserServiceImplTest {
 
 		userService.findByUsername("wrong username");
 	}
+	
+	@Test
+	public void shouldReturnTrue_whenUserFound(){
+		when(mockUserRepository.findByUsername("user1")).thenReturn(new User());
+		
+		assertTrue(userService.userWithThisUsernameExist("user1"));
+	}
+	
+	@Test
+	public void shouldReturnFalse_whenUserNotFound(){
+		when(mockUserRepository.findByUsername("user1")).thenReturn(null);
+		
+		assertFalse(userService.userWithThisUsernameExist("user1"));
+	}
 }

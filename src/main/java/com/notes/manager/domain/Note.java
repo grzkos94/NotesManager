@@ -107,4 +107,10 @@ public class Note {
 	protected void onUpdate() {
 		this.updateDate = new Date();
 	}
+
+	@Override
+	public String toString() {
+		return "Note [id=" + id + ", title=" + title + ", content=" + content + ", createDate=" + createDate
+				+ ", updateDate=" + updateDate + ", user=" + user + "]";
+	}
 }

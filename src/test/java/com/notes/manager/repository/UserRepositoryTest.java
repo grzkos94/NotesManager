@@ -27,4 +27,14 @@ public class UserRepositoryTest {
 
 		assertThat(userToSave.getId()).isGreaterThan(0);
 	}
+
+	@Test
+	public void shouldFindUserById() {
+		User user1 = new User();
+		userRepository.save(user1);
+
+		User user2 = userRepository.findOne(user1.getId());
+
+		assertThat(user2).isNotNull();
+	}
 }

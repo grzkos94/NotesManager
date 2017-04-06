@@ -109,4 +109,10 @@ public class User {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", createDate=" + createDate
+				+ ", updateDate=" + updateDate + ", passwordConfirm=" + passwordConfirm + "]";
+	}
 }
