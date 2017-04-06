@@ -6,16 +6,13 @@ import java.util.Set;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.validation.Validator;
 
-import com.notes.manager.configuration.PersistenceConfig;
 import com.notes.manager.validator.PasswordConfirmationValidator;
 import com.notes.manager.validator.UniqueUsernameValidator;
 import com.notes.manager.validator.UserValidator;
 
 @SpringBootApplication
-@Import(PersistenceConfig.class)
 public class NotesManagerApplication {
 
 	public static void main(String[] args) {

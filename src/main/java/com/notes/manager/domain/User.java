@@ -43,6 +43,14 @@ public class User {
 	@NotBlank(message = "Please confirm the password")
 	private String passwordConfirm;
 
+	public User(){}
+
+	public User(String username, String password, String passwordConfirm){
+		this.username = username;
+		this.password = password;
+		this.passwordConfirm = passwordConfirm;
+	}
+
 	@PrePersist
 	protected void onCreate() {
 		createDate = new Date();

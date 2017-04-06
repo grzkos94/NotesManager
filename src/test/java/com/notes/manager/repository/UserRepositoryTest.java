@@ -19,9 +19,12 @@ public class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 
+	private static final String DEFAULT_USERNAME = "user1";
+	private static final String DEFAULT_PASSWORD = "password1";
+
 	@Test
 	public void shouldHaveIdAfterSavingToDb() {
-		User userToSave = new User();
+		User userToSave = new User(DEFAULT_USERNAME, DEFAULT_PASSWORD, DEFAULT_PASSWORD);
 
 		userRepository.save(userToSave);
 
@@ -30,7 +33,7 @@ public class UserRepositoryTest {
 
 	@Test
 	public void shouldFindUserById() {
-		User user1 = new User();
+		User user1 = new User(DEFAULT_USERNAME, DEFAULT_PASSWORD, DEFAULT_PASSWORD);
 		userRepository.save(user1);
 
 		User user2 = userRepository.findOne(user1.getId());

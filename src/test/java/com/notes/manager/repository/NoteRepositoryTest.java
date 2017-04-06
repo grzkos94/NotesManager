@@ -18,10 +18,13 @@ import com.notes.manager.domain.Note;
 public class NoteRepositoryTest {
 	@Autowired
 	private NoteRepository noteRepository;
-	
+
+	private static final String DEFAULT_TITLE = "title1";
+	private static final String DEFAULT_CONTENT = "content1";
+
 	@Test
 	public void shouldHaveIdAfterSavingToDb(){
-		Note noteToSave = new Note();
+		Note noteToSave = new Note(DEFAULT_TITLE, DEFAULT_CONTENT);
 		
 		noteRepository.save(noteToSave);
 		
@@ -30,7 +33,7 @@ public class NoteRepositoryTest {
 	
 	@Test
 	public void shouldFindNoteById(){
-		Note note1 = new Note();
+		Note note1 = new Note(DEFAULT_TITLE, DEFAULT_CONTENT);
 		noteRepository.save(note1);
 		
 		Note note2 = noteRepository.findOne(note1.getId());
@@ -40,7 +43,7 @@ public class NoteRepositoryTest {
 	
 	@Test
 	public void shouldHaveTheSameTitleAndContentAfterSavingToDb(){
-		Note note1 = new Note("title1", "content1");
+		Note note1 = new Note(DEFAULT_TITLE, DEFAULT_CONTENT);
 		
 		noteRepository.save(note1);
 		
@@ -51,7 +54,7 @@ public class NoteRepositoryTest {
 	
 	@Test
 	public void shouldUpdateTitleAndContentCorrectly(){
-		Note note1 = new Note("title1", "content1");
+		Note note1 = new Note(DEFAULT_TITLE, DEFAULT_CONTENT);
 		noteRepository.save(note1);
 		note1.setTitle("title2");
 		note1.setContent("content2");
@@ -65,11 +68,10 @@ public class NoteRepositoryTest {
 	
 	@Test
 	public void shouldDeleteNoteFromDb(){
-		Note note1 = new Note();
+		Note note1 = new Note(DEFAULT_TITLE, DEFAULT_CONTENT);
 		noteRepository.save(note1);
 		
 		noteRepository.delete(note1.getId());
-		System.out.println(note1.getId());
 		Note note2 = noteRepository.findOne(note1.getId());
 		assertThat(note2).isNull();
 	}

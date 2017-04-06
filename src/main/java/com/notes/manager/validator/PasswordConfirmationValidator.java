@@ -1,10 +1,12 @@
 package com.notes.manager.validator;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.notes.manager.domain.User;
 
+@Component
 public class PasswordConfirmationValidator implements Validator {
 	@Override
 	public boolean supports(Class<?> clazz) {
