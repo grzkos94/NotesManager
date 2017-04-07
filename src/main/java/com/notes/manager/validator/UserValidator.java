@@ -32,11 +32,6 @@ public class UserValidator implements Validator {
 		springValidators.add(passwordConfirmationValidator);
 		springValidators.add(uniqueUsernameValidator);
 
-		UserValidator validator = new UserValidator();
-		validator.setSpringValidators(springValidators);
-	}
-
-	public void setSpringValidators(Set<Validator> springValidators) {
 		this.springValidators = springValidators;
 	}
 
