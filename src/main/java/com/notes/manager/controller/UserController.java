@@ -26,9 +26,7 @@ import com.notes.manager.validator.UserValidator;
 @Controller
 @RequestMapping("/")
 public class UserController {
-
 	private UserService userService;
-	
 	private UserValidator userValidator;
 
 	@Autowired
